@@ -14,5 +14,7 @@ namespace Data
         public float Precio { get; set; }
         public string Imagen { get; set; }
         public int Stock { get; set; }
+        public bool Eliminado { get; set; }
+
     }
 }

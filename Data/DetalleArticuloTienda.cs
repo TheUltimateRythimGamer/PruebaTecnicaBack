@@ -12,5 +12,6 @@ namespace Data
         public ICollection<Articulo> Articulos { get; set; }
         public Tienda Tienda { get; set; }
         public DateTime Fecha { get; set; }
+        public bool Eliminado { get; set; }
     }
 }

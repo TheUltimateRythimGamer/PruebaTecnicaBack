@@ -43,6 +43,9 @@ namespace Entity.Migrations
                     b.Property<int?>("DetalleClienteArticuloId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Eliminado")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Imagen")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,6 +77,14 @@ namespace Entity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Contrasenia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Correo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Direccion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -94,6 +105,9 @@ namespace Entity.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Eliminado")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -119,6 +133,9 @@ namespace Entity.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Eliminado")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
@@ -140,6 +157,9 @@ namespace Entity.Migrations
                     b.Property<string>("Direccion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Eliminado")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Sucursal")
                         .IsRequired()
