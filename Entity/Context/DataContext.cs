@@ -16,7 +16,6 @@ namespace Entity.Contexto
         public DbSet<Articulo> Articulos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Tienda> Tiendas { get; set; }
-        public DbSet<DetalleArticuloTienda> DetalleArticuloTienda { get; set; }
         public DbSet<DetalleClienteArticulo> DetalleClienteArticulo { get; set; }
     }
 }

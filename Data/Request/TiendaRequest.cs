@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data.Request
 {
-    public class Tienda
+    public class TiendaRequest
     {
         public int Id { get; set; }
         public string Sucursal { get; set; }
         public string Direccion { get; set; }
-        public bool Eliminado { get; set; }
-        public ICollection<Articulo> Articulos { get; set; }
-
     }
 }

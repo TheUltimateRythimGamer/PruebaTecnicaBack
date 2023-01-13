@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace BussinessAPI.Controllers
 {
     [Authorize]
-    [Route("api/Tienda")]
+    [Route("api/Articulo")]
     [ApiController]
-    public class TiendaController : Controller
+    public class ArticuloController : Controller
     {
-        private ITiendaService _tiendaService;
+        private IArticuloService _articuloService;
 
-        public TiendaController(ITiendaService tiendaService)
+        public ArticuloController(IArticuloService articuloService)
         {
-            _tiendaService = tiendaService;
+            _articuloService = articuloService;
         }
 
         [HttpGet]
@@ -24,8 +24,53 @@ namespace BussinessAPI.Controllers
         {
             try
             {
-                List<TiendaDTO> users = await _tiendaService.ObtenerListado();
-                return Ok(new { mensaje = "OK", Listado = users });
+                List<ArticuloDTO> items = await _articuloService.ObtenerListado();
+                return Ok(new { mensaje = "OK", Listado = items });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("Tienda/{id}")]
+        public async Task<ActionResult> GetByTiendaID([FromRoute] int id)
+        {
+            try
+            {
+                List<ArticuloDTO> articulos = await _articuloService.ObtenerListadoPorTiendaID(id);
+                return Ok(new { mensaje = "OK", Listado = articulos });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Guardar([FromBody] ArticuloRequest request)
+        {
+            try
+            {
+                Articulo model = new Articulo()
+                {
+                    Id = request.Id,
+                    Codigo = request.Codigo,
+                    Descripcion = request.Descripcion,
+                    Imagen = request.Imagen,
+                    Precio = request.Precio,
+                    Stock = request.Stock,
+                    Eliminado = false
+                };
+
+
+                bool user = await _articuloService.Guardar(model, request.TiendaId);
+
+                if (user)
+                    return Ok(new { mensaje = "OK" });
+                else
+                    return BadRequest(new { mensaje = "Error al guardar" });
             }
             catch (Exception ex)
             {
@@ -39,35 +84,8 @@ namespace BussinessAPI.Controllers
         {
             try
             {
-                TiendaDTO user = await _tiendaService.ObtenerPorID(id);
-                return Ok(new { mensaje = "OK", User = user });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { ex.Message });
-            }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Guardar([FromBody] TiendaRequest request)
-        {
-            try
-            {
-                Tienda model = new Tienda()
-                {
-                    Id = request.Id,
-                    Direccion = request.Direccion,
-                    Sucursal = request.Sucursal,
-                    Eliminado = false
-                };
-
-
-                bool user = await _tiendaService.Guardar(model); 
-
-                if (user)
-                    return Ok(new { mensaje = "OK" });
-                else
-                    return BadRequest(new { mensaje = "Error al guardar" });
+                ArticuloDTO user = await _articuloService.ObtenerPorID(id);
+                return Ok(new { mensaje = "OK", Item = user });
             }
             catch (Exception ex)
             {
@@ -82,7 +100,7 @@ namespace BussinessAPI.Controllers
             try
             {
 
-                bool user = await _tiendaService.Eliminar(id);
+                bool user = await _articuloService.Eliminar(id);
 
                 if (user)
                     return Ok(new { mensaje = "OK" });

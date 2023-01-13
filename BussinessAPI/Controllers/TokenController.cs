@@ -1,4 +1,5 @@
-﻿using Data.Request;
+﻿using BussinessAPI.Responses;
+using Data.Request;
 using Entity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -50,7 +51,7 @@ namespace BussinessAPI.Controllers
                         expires: DateTime.UtcNow.AddMinutes(10),
                         signingCredentials: signIn);
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    return Ok(new TokenResponse { Token = new JwtSecurityTokenHandler().WriteToken(token).ToString()});
                 }
                 else
                 {

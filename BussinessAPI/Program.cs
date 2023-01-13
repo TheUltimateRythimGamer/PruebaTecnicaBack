@@ -13,6 +13,8 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer
 
 builder.Services.AddScoped<ITiendaService, TiendaService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IArticuloService, ArticuloService>();
+builder.Services.AddScoped<ICompraService, CompraService>();
 
 builder.Services.AddControllers();
 
@@ -41,18 +43,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddDefaultPolicy(builder =>
-//    {
-//        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-//    });
-//});
-
-
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -66,10 +57,10 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-//app.UseCors(x => x
-//       .AllowAnyOrigin()
-//       .AllowAnyMethod()
-//       .AllowAnyHeader());,
+app.UseCors(x => x
+       .AllowAnyOrigin()
+       .AllowAnyMethod()
+       .AllowAnyHeader());
 
 
 app.Run();
